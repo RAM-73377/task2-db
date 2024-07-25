@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="ps1.css">
+</head>
+<body>
+  <main class="container-custom">
+    <section class="right-pane">
+      <div class="form-container">
+        <h2 class="getstart">Enter College Details</h2>
+        <form id="collegeForm">
+          <div class="mb-3">
+            <label for="userId" class="form-label">User ID</label>
+            <input type="text" class="form-control" id="userId" placeholder="Enter User ID" required>
+          </div>
+          <div class="mb-3">
+            <label for="collegeName" class="form-label">College Name</label>
+            <input type="text" class="form-control" id="collegeName" placeholder="Enter College Name" required>
+          </div>
+          <div class="mb-3">
+            <label for="degree" class="form-label">Degree</label>
+            <input type="text" class="form-control" id="degree" placeholder="Enter Degree" required>
+          </div>
+          <div class="mb-3">
+            <label for="fieldOfStudy" class="form-label">Field of Study</label>
+            <input type="text" class="form-control" id="fieldOfStudy" placeholder="Enter Field of Study" required>
+          </div>
+          <div class="mb-3">
+            <label for="startDate" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="startDate" required>
+          </div>
+          <div class="mb-3">
+            <label for="endDate" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="endDate" required>
+          </div>
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-outline-secondary">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const collegeForm = document.getElementById('collegeForm');
+    collegeForm.addEventListener('submit', async(e) => {
+      e.preventDefault();
+
+      const data = {
+        userId: document.getElementById('userId').value,
+        collegeName: document.getElementById('collegeName').value,
+        degree: document.getElementById('degree').value,
+        fieldOfStudy: document.getElementById('fieldOfStudy').value,
+        startDate: document.getElementById('startDate').value,
+        endDate: document.getElementById('endDate').value
+      };
+      console.log('Form Data:', data); 
+
+      const res = await fetch('/college-details', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      alert(result.message);
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
